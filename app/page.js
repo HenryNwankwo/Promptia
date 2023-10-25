@@ -1,3 +1,4 @@
+import Feed from '@/components/Feed';
 import React from 'react';
 
 function page() {
@@ -12,7 +13,7 @@ function page() {
         and sharing creative prompts
       </p>
 
-      {/* Feed */}
+      <Feed />
     </section>
   );
 }
