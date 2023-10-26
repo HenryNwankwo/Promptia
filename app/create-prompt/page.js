@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const CreatePrompt = () => {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [submitting, setSubmitting] = useState(false);
   const [prompt, setPrompt] = useState({
     promptMessage: '',
@@ -18,9 +20,9 @@ const CreatePrompt = () => {
       const resp = await fetch('/api/prompt/new', {
         method: 'POST',
         body: JSON.stringify({
-          prompt: post.promptMessage,
+          prompt: prompt.promptMessage,
           userID: session?.user.id,
-          tag: post.tag,
+          tag: prompt.tag,
         }),
       });
       if (resp.ok) {
