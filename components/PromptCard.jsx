@@ -33,12 +33,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
             </p>
           </div>
         </div>
-        <div
-          className='copy_btn'
-          onClick={() => {
-            handleCopy;
-          }}
-        >
+        <div className='copy_btn' onClick={() => handleCopy()}>
           <Image
             src={
               copied === post.prompt
@@ -47,6 +42,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
             }
             width={12}
             height={12}
+            alt='copy'
           />
         </div>
       </div>
