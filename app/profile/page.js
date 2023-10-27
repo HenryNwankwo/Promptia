@@ -12,10 +12,9 @@ const MyProfile = () => {
   //Fetching prompts for individual profile
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(
-        `/api/users/prompt${session?.user.id}/prompts`
-      );
+      const response = await fetch(`/api/users/${session?.user.id}/prompts`);
       const data = await response.json();
+      console.log(data);
 
       setPosts(data);
     };
@@ -26,8 +25,8 @@ const MyProfile = () => {
   const handleDelete = () => {};
   return (
     <Profile
-      name={''}
-      desc={''}
+      name={'My'}
+      desc={'Welcome to your personalized profile page'}
       handleEdit={handleEdit}
       data={posts}
       handleDelete={handleDelete}
