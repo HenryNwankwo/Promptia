@@ -22,10 +22,10 @@ const MyProfile = () => {
 
     if (session?.user.id) fetchPosts();
   }, []);
-  const handleEdit = () => {
+  const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
-  const handleDelete = () => {
+  const handleDelete = (post) => {
     router.push(`/delete-prompt?id=${post._id}`);
   };
   return (
