@@ -16,10 +16,26 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(''), 3000);
   };
+
+  //Showing profile of creator
+
+  const showProfile = () => {
+    if (session?.user.id === post.creator._id) {
+      router.push('/profile');
+    } else {
+      router.push(
+        `/profile/${post.creator._id}/?name=${post.creator.username}`
+      );
+    }
+  };
   return (
     <div className='prompt_card'>
       <div className='flex justify-between items-start gap-5'>
-        <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer'>
+        {/* Prompt creator info */}
+        <div
+          className='flex-1 flex justify-start items-center gap-3 cursor-pointer'
+          onClick={showProfile}
+        >
           <Image
             src={post.creator.image}
             alt='user_image'
@@ -36,6 +52,8 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
             </p>
           </div>
         </div>
+
+        {/* Copy prompt group */}
         <div className='copy_btn' onClick={() => handleCopy()}>
           <Image
             src={
