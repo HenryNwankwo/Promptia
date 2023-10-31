@@ -9,7 +9,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
   const { data: session } = useSession();
   const router = useRouter();
   const pathName = usePathname();
-
+  const tags = post.tag.split(',');
   //HAndling copying of prompts
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -50,11 +50,16 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
         </div>
       </div>
       <p className='my-4 font-satoshi text-sm text-gray-700'>{post.prompt}</p>
-      <p
-        className='font-inter text-sm blue_gradient cursor-pointer'
-        onClick={() => handleTagClick && handleTagClick(post.tag)}
-      >
-        {post.tag}
+      <p className='flex font-inter text-sm blue_gradient cursor-pointer gap-1 flex-wrap'>
+        {tags.map((item, index) => (
+          <button
+            className='px-2 py-0.5 bg-blue-100 rounded-xl text-blue-900'
+            key={index}
+            onClick={() => handleTagClick && handleTagClick(item.trim())}
+          >
+            {item.trim()}
+          </button>
+        ))}
       </p>
 
       {/* Edit and delete  */}
