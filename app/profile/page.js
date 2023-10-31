@@ -15,7 +15,6 @@ const MyProfile = () => {
     const fetchPosts = async () => {
       const response = await fetch(`/api/users/${session?.user.id}/prompts`);
       const data = await response.json();
-      console.log(data);
 
       setPosts(data);
     };
@@ -42,7 +41,6 @@ const MyProfile = () => {
         console.log(err);
       }
     }
-    router.push(`/delete-prompt?id=${post._id}`);
   };
   return (
     <Profile
