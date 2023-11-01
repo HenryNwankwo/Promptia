@@ -21,7 +21,7 @@ function Feed() {
   const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
-  const [searchTimeOut, setSearchTimeOut] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   //Filtering prompts
 
@@ -36,26 +36,33 @@ function Feed() {
     );
   };
 
+  // filtering prompts by search input change
   const handleSearchChange = (e) => {
-    clearTimeout(searchTimeOut);
-    //e.preventDefault();
     setSearchText(e.target.value);
 
     const filteredPrompts = filterPrompts(e.target.value);
     setFilteredPosts(filteredPrompts);
   };
+
+  // filtering prompts by tag click
   const handleTagClick = (tag) => {
     setSearchText(tag);
     const filteredPrompts = filterPrompts(tag);
     setFilteredPosts(filteredPrompts);
   };
+
   //Fetching prompts for feed
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch('/api/prompt');
-      const data = await response.json();
-      setFilteredPosts(data);
-      setPosts(data);
+      try {
+        const response = await fetch('/api/prompt');
+        const data = await response.json();
+        setFilteredPosts(data);
+        setPosts(data);
+        setLoading((prev) => (prev === true ? false : prev));
+      } catch (err) {
+        console.log('Error fetching prompts: ', err);
+      }
     };
 
     fetchPosts();
@@ -73,7 +80,11 @@ function Feed() {
           className='search_input peer'
         />
       </form>
-      <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
+      {loading ? (
+        <p>Loading</p>
+      ) : (
+        <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
+      )}
     </section>
   );
 }

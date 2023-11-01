@@ -9,21 +9,29 @@ const MyProfile = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //Fetching prompts for individual profile
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/users/${session?.user.id}/prompts`);
-      const data = await response.json();
+      try {
+        const response = await fetch(`/api/users/${session?.user.id}/prompts`);
+        const data = await response.json();
 
-      setPosts(data);
+        setPosts(data);
+        setLoading((prev) => (prev === true ? false : prev));
+      } catch (err) {
+        console.log('Error fetching profile prompts: ', err);
+      }
     };
 
     if (session?.user.id) fetchPosts();
   }, []);
+
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
   };
+
   const handleDelete = async (post) => {
     const itsConfirmed = confirm(
       'Are you sure you want to delete this prompt?'
@@ -42,6 +50,7 @@ const MyProfile = () => {
       }
     }
   };
+
   return (
     <Profile
       name={'My'}
@@ -49,6 +58,7 @@ const MyProfile = () => {
       handleEdit={handleEdit}
       data={posts}
       handleDelete={handleDelete}
+      loading={loading}
     />
   );
 };

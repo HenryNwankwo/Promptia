@@ -7,6 +7,7 @@ import Profile from '@/components/Profile';
 const UserProfile = ({ params }) => {
   const searchParams = useSearchParams();
   const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const username = searchParams.get('name');
 
   //Fetching prompts for individual profile
@@ -18,6 +19,7 @@ const UserProfile = ({ params }) => {
           const data = await response.json();
 
           setUserPosts(data);
+          setLoading((prev) => (prev === true ? false : prev));
         }
       } catch (err) {
         console.log('Error fetching profile prompts: ', err);
@@ -32,6 +34,7 @@ const UserProfile = ({ params }) => {
       name={username}
       desc={`Welcome to ${username} personalized profile page. Explore ${username}'s exceptional prompts and be inspired by the power of their imagination!`}
       data={userPosts}
+      loading={loading}
     />
   );
 };
