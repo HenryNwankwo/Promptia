@@ -10,6 +10,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
   const router = useRouter();
   const pathName = usePathname();
   const tags = post.tag.split(',');
+
   //HAndling copying of prompts
   const handleCopy = () => {
     setCopied(post.prompt);

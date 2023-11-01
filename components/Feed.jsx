@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import PromptCard from './PromptCard';
+import SkeletonCard from './SkeletonCard';
+import SkeletonPromptCardList from './SkeletonPromptCardList';
 
 //Containing on the prompt cards
 const PromptCardList = ({ data, handleTagClick }) => {
@@ -81,7 +83,11 @@ function Feed() {
         />
       </form>
       {loading ? (
-        <p>Loading</p>
+        <SkeletonPromptCardList>
+          {[...Array(5).keys()].map((item) => (
+            <SkeletonCard key={item} />
+          ))}
+        </SkeletonPromptCardList>
       ) : (
         <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
       )}
