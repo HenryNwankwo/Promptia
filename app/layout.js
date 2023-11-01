@@ -1,6 +1,8 @@
 import Nav from '@/components/Nav';
 import Provider from '@/components/Provider';
 import '@/styles/global.css';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 export const metadata = {
   title: 'Promptia',
   description: 'Discover & Share AI Prompts',
