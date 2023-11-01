@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import Skeleton from 'react-loading-skeleton';
 
 function Nav() {
   const { data: session } = useSession();
@@ -70,14 +71,18 @@ function Nav() {
       <div className='sm:hidden flex relative'>
         {session?.user ? (
           <div className='flex'>
-            <Image
-              src={session?.user.image}
-              width={37}
-              height={37}
-              alt='profile image'
-              className='rounded-full'
-              onClick={() => setToggleDropdown((prev) => !prev)}
-            />
+            <>
+              {(
+                <Image
+                  src={session?.user.image}
+                  width={37}
+                  height={37}
+                  alt='profile image'
+                  className='rounded-full cursor-pointer'
+                  onClick={() => setToggleDropdown((prev) => !prev)}
+                />
+              ) || <Skeleton circle width={37} height={37} />}
+            </>
             {toggleDropdown && (
               <div className='dropdown'>
                 <Link

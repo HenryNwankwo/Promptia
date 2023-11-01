@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
   const [copied, setCopied] = useState('');
@@ -38,18 +39,19 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
           onClick={showProfile}
         >
           <Image
-            src={post.creator.image}
+            src={post.creator.image || <Skeleton />}
             alt='user_image'
             width={40}
             height={40}
             className='rounded-full object-contain'
           />
+
           <div className='flex flex-col'>
             <h3 className='font-satoshi font-semibold text-gray-900'>
-              {post.creator.username}
+              {post.creator.username || <Skeleton />}
             </h3>
             <p className='font-inter text-sm text-gray-500'>
-              {post.creator.email}
+              {post.creator.email || <Skeleton />}
             </p>
           </div>
         </div>

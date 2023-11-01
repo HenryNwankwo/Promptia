@@ -1,4 +1,5 @@
 import PromptCard from './PromptCard';
+import SkeletonCard from './SkeletonCard';
 
 function Profile({ name, desc, data, handleDelete, handleEdit, loading }) {
   return (
@@ -8,7 +9,11 @@ function Profile({ name, desc, data, handleDelete, handleEdit, loading }) {
       </h1>
       <p className='desc text-left'>{desc}</p>
       {loading ? (
-        <p>loading..</p>
+        <div className='mt-16 prompt_layout'>
+          {[...Array(4).keys()].map((item) => (
+            <SkeletonCard key={item} />
+          ))}
+        </div>
       ) : data.length <= 0 ? (
         <p className='mt-16 text-gray-500 text-lg'>No available prompt!</p>
       ) : (
